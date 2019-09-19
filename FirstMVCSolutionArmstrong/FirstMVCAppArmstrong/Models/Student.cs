@@ -11,10 +11,16 @@ namespace FirstMVCAppArmstrong.Models
         public int StudentID { get; set; }
         public String StudentName { get; set; }
         public double StudentGPA { get; set; }
+        public double Tuition { get; set; }
 
         public Student(int studentID)
         {
             this.StudentID = studentID;
+        }
+
+        public Student()
+        {
+
         }
 
         public Student(int StudentID, string StudentName, double StudentGPA)
@@ -22,7 +28,7 @@ namespace FirstMVCAppArmstrong.Models
             this.StudentID = StudentID; 
             this.StudentName = StudentName;
             this.StudentGPA = StudentGPA;
-          //  this.major = new Major();
+            //  this.major = new Major();
         }
         //accepts 3 parameters of the student type
 
@@ -34,6 +40,11 @@ namespace FirstMVCAppArmstrong.Models
                 return second;
             else
                 return third;
+        }
+
+        public virtual void calculateTuition()
+        {
+            this.Tuition = 0;
         }
     }
 }

@@ -17,5 +17,6 @@ namespace XUnitTestProject1
             Student.findStudentWithHighestGPA(studentOne, studentTwo, studentThree);
             Assert.Equal(3.2, Student.findStudentWithHighestGPA(studentOne, studentTwo, studentThree).StudentGPA);
         }
+        
     }
 }
