@@ -1,0 +1,37 @@
+﻿@model Player
+
+@{
+    ViewData["Title"] = "Confirm Delete Player";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Edit Player</title>
+</head>
+<body>
+<h1>Add Players</h1>
+
+<form asp-controller="Players" asp-action="Player" method="post">
+    @Html.HiddenFor(m => m.ID)
+
+    <div class="form-group">
+        <label>FirstName</label>
+        <input readonly asp-for="FirstName" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>LastName</label>
+        <input readonly asp-for="LastName" class="form-control">
+    </div>
+        <div class="form-group">
+            <label>Position</label>
+            <input readonly asp-for="Position" class="form-control">
+        </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Edit Player</button>
+</form>
+</body>
+</html>

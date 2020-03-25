@@ -1,0 +1,120 @@
+﻿@using Microsoft.CodeAnalysis.Differencing
+@model SearchPlayersViewModel
+
+@{
+    ViewData["Title"] = "Search Players";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<h1>Search Players</h1>
+<div>
+    <form asp-controller="Players" asp-action="SearchPlayers" method="post">
+        <div class="form-group">
+            <label>School</label>
+            <select asp-for="SchoolID" class="form-control" asp-items="ViewBag.SchoolList">
+                <option value="">None</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Gender</label>
+            <select asp-for="Gender" class="form-control">
+                <option value="">None</option>
+                <option value="Boys">Boys</option>
+                <option value="Girls">Girls</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Gender</label>
+            <select asp-for="Position" class="form-control">
+                <option value="">None</option>
+                <option value="F">Forward</option>
+                <option value="M">Midfield</option>
+                <option value="M">Defense</option>
+                <option value="G">Goalie</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Start Date (Players starting after) </label>
+            <input asp-for="SearchStartDate" textmode="DateTime" class="form-control">
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Student</th>
+            <th>Position</th>
+            <th>School</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Choose Player to Edit</th>
+        </tr>
+        </thead>
+        
+        <tbody>
+        @if (!(ViewBag.SchoolList as SelectList).Any())
+        {
+
+
+            @foreach (Player eachPlayer in ViewBag.SchoolList)
+            {
+            <tr>
+                <td>@eachPlayer.FullName</td>
+                <td>@eachPlayer.Position</td>
+                <td>
+                    @foreach (TeamPlayer eachTeamPlayer in @eachPlayer.TeamPlayers)
+                    {
+                        @eachTeamPlayer.team.School.SchoolName
+                        <br />
+                    }
+                </td>
+                <td>
+                    @foreach (TeamPlayer eachTeamPlayer in @eachPlayer.TeamPlayers)
+                    {
+                        @eachTeamPlayer.StartDate.ToShortDateString()
+                        <br />
+                    }
+                </td>
+                <td>
+                    @foreach (TeamPlayer eachTeamPlayer in @eachPlayer.TeamPlayers)
+                    {
+                        if (eachTeamPlayer.EndDate.HasValue)
+                        {
+                            @eachTeamPlayer.EndDate.Value.ToShortDateString()
+                            <br />
+                        }
+                        else
+                        {
+                            <p>Current Player</p>
+                        }
+                    }
+                </td>
+                @if (User.IsInRole("Coach") || (User.IsInRole("Coach")))
+                {
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Players" asp-action="EditPlayer" asp-route-playerID="@eachPlayer.ID">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Players" asp-action="ConfirmDeletePlayer" asp-route-playerID="@eachPlayer.ID">Delete</a>
+                    </td>
+                }
+            </tr>
+
+            }
+        }
+        </tbody>
+        
+    </table>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Player>
+
+@{
+    ViewData["Title"] = "List All Players";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  
+</head>
+<body>
+<div>
+    <h1>@ViewData["Title"]</h1>
+    
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Student</th>
+            <th>Position</th>
+            <th>School</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Player eachPlayer in Model)
+        {
+            <tr>
+                <td>@eachPlayer.FullName</td>
+                <td>@eachPlayer.Position</td>
+                <td>
+                    @foreach (TeamPlayer eachTeamPlayer in @eachPlayer.TeamPlayers)
+                    {
+                        @eachTeamPlayer.team.School.SchoolName <br />
+                    }
+            </td>
+                <td>
+                    @foreach (TeamPlayer eachTeamPlayer in @eachPlayer.TeamPlayers)
+                    {
+                        @eachTeamPlayer.StartDate.ToShortDateString() <br />
+                    }
+                </td>
+                <td>
+                    @foreach (TeamPlayer eachTeamPlayer in @eachPlayer.TeamPlayers)
+                    {
+                        if (eachTeamPlayer.EndDate.HasValue)
+                        {
+                            @eachTeamPlayer.EndDate.Value.ToShortDateString()
+                            <br/>
+                        }
+                        else
+                        {
+                            <p>Current Player</p>
+                        }
+                    }
+</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    
+</div>
+</body>
+</html>

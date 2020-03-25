@@ -1,0 +1,58 @@
+﻿@model WVHSMVCAppArmstrong.ViewModels.AddPlayersViewModel
+
+@{
+    ViewData["Title"] = "Add Players";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<h1>Add Players</h1>
+<div asp-validation-summary="All" class="text-danger"> </div>
+<form asp-controller="Players" asp-action="AddPlayers" method="post">
+        <div class="form-group">
+            <label>School</label>
+            <select asp-for="SchoolID" class="form-control" asp-items="ViewBag.SchoolList">
+                <option value=null>None</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>FirstName</label>
+            <input asp-for="FirstName" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>LastName</label>
+            <input asp-for="LastName" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Gender</label>
+            <select asp-for="Gender" class="form-control">
+                <option value="Boys">Boys</option>
+                <option value="Girls">Girls</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Position</label>
+            <select asp-for="Position" class="form-control">
+                <option value="M">Midfield</option>
+                <option value="F">Forward</option>
+                <option value="D">Defense</option>
+                <option value="G">Goalie</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Start Date (Players starting after) </label>
+            <input asp-for="startDate" class="form-control">
+        </div>
+       
+
+
+        <button type="submit" class="btn btn-primary">Add Player</button>
+    </form>
+</body>
+</html>
